@@ -1,0 +1,44 @@
+<?php
+/**
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category    
+ * @package     Rewardpoints
+ * @copyright   Copyright (c) 2012 
+ * @license     
+ */
+
+/**
+ * Rewardpoints Block
+ * 
+ * @category    
+ * @package     Rewardpoints
+ * @author      Developer
+ */
+class Magestore_RewardPoints_Block_Checkout_Sidebar_Action extends Magestore_RewardPoints_Block_Template
+{
+    /**
+     * Check store is enable for display on minicart sidebar
+     * 
+     * @return type
+     */
+    public function enableDisplay()
+    {
+        return Mage::helper('rewardpoints/point')->showOnMiniCart();
+    }
+    
+    /**
+     * get Image (HTML) for reward points
+     * 
+     * @param boolean $hasAnchor
+     * @return string
+     */
+    public function getImageHtml($hasAnchor = true)
+    {
+        return Mage::helper('rewardpoints/point')->getImageHtml($hasAnchor);
+    }
+}

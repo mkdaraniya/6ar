@@ -1,0 +1,154 @@
+<?php
+$_catalogType=Mage::getSingleton("core/session")->getProfileDataType();  
+$mainfile='';
+if(Mage::getSingleton("core/session")->getMainfile()!=""){
+	$mainfile=Mage::getSingleton("core/session")->getMainfile();
+}
+$headfile='';
+if(Mage::getSingleton("core/session")->getHeadfile()!=""){
+	$headfile=Mage::getSingleton("core/session")->getHeadfile();
+}
+$profile=Mage::getSingleton("core/session")->getProfile();
+//$productAttributes  = Mage::getResourceModel('catalog/product_attribute_collection')->load();
+//Zend_Debug::dump( $productAttributes->getData());
+
+
+?>
+<input type="hidden" name="mainfile" id="mainfile" value="<?php echo $mainfile; ?>" />
+<input type="hidden" name="headfile" id="headfile" value="<?php echo $headfile; ?>" />
+
+<div id="root-generator" class="entry-edit root-generator">
+    <div id="root__fieldmapping">
+    <div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Root Field Mapping") ?></h4>
+    </div>
+    <fieldset>
+        <div id="root_template_<?php echo $_entityType ?>">
+                    <span class="field-row">
+                        <?php echo $this->__("Root Field Mapping:") ?> 
+                        <select name="profile[root_field_mapping]" id="root_field_mapping">
+                            <?php
+                                $fieldMappingInDatabase = $this->getFileData();
+                                asort($fieldMappingInDatabase);
+                                foreach ($fieldMappingInDatabase as $key=>$_label): ?>
+                                	<?php if($profile['root_field_mapping']==$key): ?>	
+                                		<option value="<?php echo $key ?>" selected="selected"><?php echo $_label ?></option>
+                                    <?php else: ?>
+                                    	<option value="<?php echo $key ?>"><?php echo $_label ?></option>
+                                    <?php endif; ?>    
+                            <?php endforeach ?>
+                        </select>
+                    </span>
+                </div>
+        
+        
+    </fieldset>
+    
+    </div>
+    
+</div>
+
+
+
+<div id="profile-generator" class="entry-edit profile-generator">
+    <div id="__fieldmapping">
+    <div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Field Mapping") ?></h4>
+    </div>
+    <fieldset>
+    	<input type="hidden" id="profile_entity_type" name="entity_type" value="<?php echo $_catalogType; ?>" />
+        <legend><?php echo $this->__("Fields Mapping") ?></legend>
+        <?php foreach (array($_catalogType) as $_entityType): ?>
+        
+            <div class="profile_entity_type_<?php echo $_entityType ?>">
+                <div id="map_template_<?php echo $_entityType ?>" style="display:none">
+                    <span class="field-row">
+                        <?php echo $this->__("In Database:") ?> <select name="gui_data[map][<?php echo $_entityType ?>][db][]">
+                            <?php
+                                $fieldMappingInDatabase = $this->getAttributes($_entityType);
+                                asort($fieldMappingInDatabase);
+                               	 foreach ($fieldMappingInDatabase as $_value=>$_label): ?>
+                                <option value="<?php echo $_value ?>"><?php echo $_label ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        &lt;--&gt;
+                        <?php echo $this->__("In File:") ?> 
+                        
+                        <select name="gui_data[map][<?php echo $_entityType ?>][file][]">
+                            <?php
+                                $fieldMappingInDatabase = $this->getFileData();
+                                asort($fieldMappingInDatabase);
+                                foreach ($fieldMappingInDatabase as $key=>$_label): ?>
+                                	<option value="<?php echo $key ?>"><?php echo $_label ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        
+                        
+                        <?php echo $this->getRemoveMapButtonHtml() ?>
+                    </span>
+                </div>
+                <div id="map_container_<?php echo $_entityType ?>">
+                    <?php 
+						$fileDBAttributeEdit=$this->getFileDBAttributeEdit();
+						for($i=0;$i<count($fileDBAttributeEdit['db']);$i++){ ?>
+                  
+                        <span class="field-row">
+                            <?php echo $this->__("In Database:") ?> <select name="gui_data[map][<?php echo $_entityType ?>][db][]">
+								<?php
+                                    $fieldMappingInDatabase = $this->getAttributes($_entityType);
+                                    asort($fieldMappingInDatabase);
+                                     foreach ($fieldMappingInDatabase as $_value=>$_label): ?>
+                                		<?php if($_value==$fileDBAttributeEdit['db'][$i]): ?>    		
+                                            <option value="<?php echo $_value ?>" selected="selected"><?php echo $_label ?></option>
+                                		<?php else: ?>
+                                        	<option value="<?php echo $_value ?>"><?php echo $_label ?></option>
+                                        <?php endif; ?>	
+								<?php endforeach ?>
+                            </select>
+                            &lt;--&gt;
+                            <?php echo $this->__("In File:") ?> 
+                            
+                            <select name="gui_data[map][<?php echo $_entityType ?>][file][]">
+                                <?php
+                                    $fieldMappingInDatabase = $this->getFileData();
+                                    asort($fieldMappingInDatabase);
+                                    foreach ($fieldMappingInDatabase as $key=>$_label): ?>
+                                		<?php if($key==$fileDBAttributeEdit['file'][$i]): ?>        	
+                                            <option value="<?php echo $key ?>" selected="selected"><?php echo $_label ?></option>
+                                		<?php else: ?>
+                                        	<option value="<?php echo $key ?>"><?php echo $_label ?></option>
+                                        <?php endif; ?>
+                                        
+                                        
+								<?php endforeach ?>
+                            </select>
+                            <?php echo $this->getRemoveMapButtonHtml() ?>
+                        </span>
+                    <?php } ?>
+                </div>
+                
+            </div>
+        <?php endforeach ?>
+        <?php echo $this->getAddMapButtonHtml() ?>
+        
+        
+    </fieldset>
+    
+    </div>
+    
+</div>
+<script type="text/javascript">
+function addFieldMapping()
+{
+	var entityType = $('profile_entity_type').value;
+	Element.insert($('map_container_'+entityType), {bottom: $('map_template_'+entityType).innerHTML});
+}
+function removeFieldMapping(button)
+{
+	Element.remove(button.parentNode);
+}
+function setMapFileField(select)
+{
+	select.parentNode.getElementsByTagName('input')[0].value = select.value;
+}
+</script>

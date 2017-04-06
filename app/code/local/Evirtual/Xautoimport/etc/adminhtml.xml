@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Evirtual_Xautoimport extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Evirtual
+ * @package        Evirtual_Xautoimport
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <evirtual_xautoimport translate="title" module="evirtual_xautoimport">
+                                        <title>Xautoimport</title>
+                                    </evirtual_xautoimport>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <evirtual_xautoimport translate="title" module="evirtual_xautoimport">
+                        <title>Evirtual Xautoimport</title>
+                        <children>
+                            <profile translate="title" module="evirtual_xautoimport">
+                                <title>Profile</title>
+                                <sort_order>0</sort_order>
+                            </profile>
+                        </children>
+                    </evirtual_xautoimport>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <evirtual_xautoimport translate="title" module="evirtual_xautoimport">
+            <title>Evirtual Xautoimport</title>
+            <sort_order>65</sort_order>
+            <children>
+                <profile translate="title" module="evirtual_xautoimport">
+                    <title>Profile</title>
+                    <action>adminhtml/xautoimport_profile</action>
+                    <sort_order>0</sort_order>
+                </profile>
+            </children>
+			<depends>
+                <config>evirtual_xautoimport/general/enable</config> <!-- Fake dependance to hide tab -->
+            </depends>
+        </evirtual_xautoimport>
+    </menu>
+</config>

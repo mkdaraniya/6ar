@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>    
+    <global>
+        <models>
+            <scrumwheel_imageimport>
+                <class>Scrumwheel_Imageimport_Model</class>
+            </scrumwheel_imageimport>                         
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <scrumwheel_imageimport>
+                <schedule>
+                    <cron_expr>0 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>scrumwheel_imageimport/observer::setStatus</model>
+                </run>
+            </scrumwheel_imageimport>
+        </jobs>
+    </crontab>
+</config>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <global>
+        <models>
+            <scrumwheel_updateproduct>
+                <class>Scrumwheel_UpdateProduct_Model</class>
+            </scrumwheel_updateproduct>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            
+<scrumwheel_outofstockV1>
+                <schedule>
+                    <cron_expr>30 1,4,7,10,13,16,19,22 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>scrumwheel_updateproduct/observer::manageInventory</model>
+                </run>
+            </scrumwheel_outofstockV1>
+<scrumwheel_outofstockV2>
+                <schedule>
+                    <cron_expr>0 0,3,6,9,12,15,18,21 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>scrumwheel_updateproduct/observer::manageInventory</model>
+                </run>
+            </scrumwheel_outofstockV2 >
+
+        </jobs>
+    </crontab>
+  </config>

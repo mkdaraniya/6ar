@@ -1,0 +1,164 @@
+<?php
+$profile=Mage::getSingleton("core/session")->getProfile();
+//Zend_Debug::dump($profile);
+$profileCategoryField=json_decode($profile['profile_category_field'],true);
+$profileCategoryChoice=$profile['profile_category_choice'];
+$this->getFileData();
+?>
+<style>
+#profile-generator select{
+	width:auto;
+}
+</style>
+<div id="profile-generator" class="entry-edit profile-generator">
+  <div id="__fieldmapping">
+    <div class="entry-edit-head">
+      <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Category Mapping") ?></h4>
+    </div>
+    <div id="profile_profile_validate" class="fieldset ">
+      <div class="hor-scroll">
+        <table cellspacing="0" class="form-list">
+          <tbody>
+            <tr>
+              <td class="label"><label for="profile_source_type"><?php echo $this->__('Use Magento Single Category'); ?><span class="required">*</span></label></td>
+              <td class="value">
+                     <select class="required-entry required-entry select" name="profile[profile_category_choice]" id="profile_category_choice" onchange="categoryprimary(this);">						
+                     	<option value=""><?php echo $this->__("Select Magento Category") ?></option>
+                        <?php if($profileCategoryChoice=="no"): ?>
+                        	<option value="no" selected="selected"><?php echo $this->__("No") ?></option>
+						<?php else: ?>
+                        	<option value="no"><?php echo $this->__("No") ?></option>
+                        <?php endif; ?>
+						<?php
+                                $getSlectedStore =Mage::getSingleton('core/session')->getStoreSelected();
+                                //$fieldMappingInDatabase = $this->getCategoryArray(2,false);
+                                $fieldMappingInDatabase = $this->getCategoryArray($getSlectedStore,false);
+                                asort($fieldMappingInDatabase);
+                                foreach ($fieldMappingInDatabase as $_value=>$_label): ?>
+                                	<?php if($profileCategoryChoice==$_value): ?>
+                            	    	<option value="<?php echo $_value ?>" selected="selected"><?php echo $_label ?></option>
+                            		<?php else: ?>
+                                    	<option value="<?php echo $_value ?>"><?php echo $_label ?></option>
+                                    <?php endif; ?>
+							<?php endforeach ?>
+                     </select>
+                </td>
+                </tr>
+            <tr>
+            
+            <tr id="source_file_fields" <?php if($profileCategoryChoice!="no"): ?>  style="display:none;" <?php else: ?>  style="display:table-row;" <?php endif; ?>>
+              <td class="label"><label for="profile_source_type"><?php echo $this->__('Category Field'); ?><span class="required">*</span></label></td>
+              <td class="value">
+                     <select class="select" multiple="multiple" name="profile[profile_category_field][]" id="profile_category_field" onchange="categorysecondry(this);">						
+                     	<option value=""><?php echo $this->__("Select Source File Fields") ?></option>
+						<?php
+                                $fieldMappingInDatabase = $this->getFileData();
+                                asort($fieldMappingInDatabase);
+								
+								foreach ($fieldMappingInDatabase as $key=>$_label): ?>
+                                	<?php if(in_array($key,$profileCategoryField)): ?>
+                                		<option value="<?php echo $key ?>" selected="selected"><?php echo $_label ?></option>
+                            		<?php else: ?>
+                                    	<option value="<?php echo $key ?>"><?php echo $_label ?></option>
+                                    <?php endif; ?>
+								<?php endforeach ?>
+                     </select>
+                </td>
+                </tr>
+            <tr>
+            
+          </tbody>
+        </table>
+        
+        <input type="hidden" id="profile_category_type" name="catalog_type" value="category" />
+        <div class="profile_entity_type_category">
+                <div id="map_template_category" style="display:none">
+                    <span class="field-row">
+                        <?php echo $this->__("In Database:") ?> <select name="gui_data[map][category][db][]">
+                            <?php
+                                $getSlectedStore =Mage::getSingleton('core/session')->getStoreSelected();
+                                //$fieldMappingInDatabase = $this->getCategoryArray(2,false);
+								if($getSlectedStore==""){
+								$getSlectedStore=1;
+								}
+                                $fieldMappingInDatabase = $this->getCategoryArray($getSlectedStore,false);
+                                asort($fieldMappingInDatabase);
+                                foreach ($fieldMappingInDatabase as $_value=>$_label): ?>
+                                <option value="<?php echo $_value ?>"><?php echo $_label ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        &lt;--&gt;
+                       
+                        <select name="gui_data[map][category][file][]" class="guid_data_file">
+                            
+                        </select>
+                        
+                        
+                        <?php echo $this->getRemoveMapButtonHtml() ?>
+                    </span>
+                </div>
+                <div id="map_container_category">
+                    <?php
+						$fieldMappingInFiles = $this->getFileCategory();
+                         asort($fieldMappingInFiles);
+						$fileDBAttributeEdit=$this->getFileDBAttributeEdit();
+						//Zend_Debug::dump($fileDBAttributeEdit);
+						//Zend_Debug::dump($fieldMappingInFiles);
+						for($i=0;$i<count($fileDBAttributeEdit['db']);$i++){ 
+					?>
+                    
+					
+                        <span class="field-row">
+                            <?php echo $this->__("In Database:") ?> <select name="gui_data[map][category][db][]">
+                            <option value=""><?php echo $this->__("In Database:") ?></option>
+							<?php
+								$getSlectedStore =Mage::getSingleton('core/session')->getStoreSelected();
+                                //$fieldMappingInDatabase = $this->getCategoryArray(2,false);
+								if($getSlectedStore==""){
+								$getSlectedStore=1;
+								}
+                                $fieldMappingInDatabase = $this->getCategoryArray($getSlectedStore,false);
+                                asort($fieldMappingInDatabase); 
+								foreach ($fieldMappingInDatabase as $_value=>$_label): ?>
+                                	<?php if($_value==$fileDBAttributeEdit['db'][$i]): ?>    		
+                                            <option value="<?php echo $_value ?>" selected="selected"><?php echo $_label ?></option>
+                                		<?php else: ?>
+                                        	<option value="<?php echo $_value ?>"><?php echo $_label ?></option>
+                                        <?php endif; ?>	
+                            <?php endforeach ?>
+                            </select>
+                            &lt;--&gt;
+                           <?php echo $this->__("In File:") ?> 
+                            <select name="gui_data[map][category][file][]">
+                                <?php
+                                    
+                                    foreach ($fieldMappingInFiles as $key=>$_label): 
+									?>
+                                		<?php if($_label==$fileDBAttributeEdit['file'][$i]): ?>        	
+                                            <option value="<?php echo $_label ?>" selected="selected"><?php echo $_label ?></option>
+                                		<?php else: ?>
+                                        	<option value="<?php echo $_label ?>"><?php echo $_label ?></option>
+                                        <?php endif; ?>
+								<?php endforeach ?>
+                            </select>
+                            <?php echo $this->getRemoveMapButtonHtml() ?>
+                        </span>
+                    
+                    <?php } ?>
+                    
+                </div>
+                
+            </div>
+        	<div id="addbutton" style="display:none;"><?php echo $this->getAddMapButtonHtml() ?></div>
+        
+        <script type="text/javascript">
+			<?php if($profileCategoryChoice=="no"): ?>
+					ele=document.getElementById("profile_category_field");	
+					categorysecondry(ele);
+			<?php endif; ?>
+		</script>
+        
+      </div>
+    </div>
+  </div>
+</div>

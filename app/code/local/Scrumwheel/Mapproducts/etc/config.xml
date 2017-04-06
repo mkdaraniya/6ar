@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+    <global>
+        <models>
+            <scrumwheel_mapproducts>
+                <class>Scrumwheel_mapproducts_Model</class>
+            </scrumwheel_mapproducts>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <scrumwheel_mapproducts>
+                <schedule>
+                    <cron_expr>0 2 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>scrumwheel_mapproducts/observer::syncCatpro</model>
+                </run>
+            </scrumwheel_mapproducts>
+        </jobs>
+    </crontab>
+</config>

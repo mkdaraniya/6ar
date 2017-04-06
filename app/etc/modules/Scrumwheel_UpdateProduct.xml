@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Scrumwheel_UpdateProduct>
+            <active>true</active>
+            <codePool>local</codePool>
+            <version>0.0.1</version>
+        </Scrumwheel_UpdateProduct>
+    </modules>
+</config>

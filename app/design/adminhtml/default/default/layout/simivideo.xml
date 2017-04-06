@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category  
+ * @package   Simivideo
+ * @copyright   Copyright (c) 2012 
+ * @license   
+ */
+-->
+<layout version="0.1.0">
+    <adminhtml_simivideo_simivideo_index>
+        <reference name="content">
+            <block type="simivideo/adminhtml_simivideo" name="simivideo" />
+        </reference>
+    </adminhtml_simivideo_simivideo_index>
+</layout>

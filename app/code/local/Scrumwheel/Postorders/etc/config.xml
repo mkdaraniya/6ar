@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>    
+    <global>
+        <models>
+            <scrumwheel_postorders>
+                <class>Scrumwheel_Postorders_Model</class>
+            </scrumwheel_postorders>                         
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <scrumwheel_postorders>
+                <schedule>
+                    <cron_expr>*/30 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>scrumwheel_postorders/observer::syncOrders</model>
+                </run>
+            </scrumwheel_postorders>
+        </jobs>
+    </crontab>
+</config>

@@ -1,0 +1,178 @@
+<?php
+$categories = Mage::getModel('catalog/category')->getCollection()
+    ->addAttributeToSelect('*')
+    ->addAttributeToFilter('level', 2)
+    ->addAttributeToFilter('is_active', 1);
+
+$appdata = Mage::registry('application_data');
+$appcode = $appdata->getAppCode();
+$storeid = Mage::app()->getRequest()->getParam('store', null);
+$collection = Mage::getModel('mobiadmin/appsetting')->getCollection();
+$collection->addFieldToFilter('app_code', $appcode)->addFieldToFilter('setting_code','category_banners');
+$collection->addFieldToFilter('storeid', $storeid);
+$data = $collection->getFirstItem()->getValue();
+$data = Mage::helper('mobiadmin')->_jsonUnserialize($data);
+
+$allcategory = Mage::getModel('catalog/category')->getCollection()
+    ->addAttributeToSelect('*')    
+    ->addAttributeToFilter('level',  array('gt' => 1))
+    ->addAttributeToFilter('is_active', 1);
+?>
+<div class="entry-edit-head">
+	<h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Edit Category Banners ')?></h4>
+</div>
+<?php
+$_htmlName = 'banner';
+$_htmlId ="bannercontainer";
+$bannerControl = 'bannerControl';
+?>
+<div class="grid" style="width:900px;">
+	<table cellspacing="0" class="data border" id="<?php echo $_htmlName ?>_table">
+		<col/>			
+		<thead>
+			<tr class="headings">
+				<th><?php echo $this->__('Banner') ?></th>									
+				<th><?php echo $this->__('Assign to category') ?></th>	
+				<th><?php echo $this->__('Position') ?></th>	
+				<th><?php echo $this->__('Status') ?></th>	
+				<th><?php echo $this->__('Link') ?></th>	
+				<th><?php echo $this->__('Action') ?></th>				
+			</tr>
+		</thead>
+		<tbody id="<?php echo $_htmlId ?>_container"></tbody>
+		<tfoot>
+			<tr>
+				<td><?php echo $this->__('Recommended image width: 1080px') ?></td>
+				<td colspan="5" class="a-right">
+					<button id="" title="Add Banner" type="button" class="scalable add" onclick="return <?php echo $bannerControl?>.addItem()" style=""><span><span><span>Add Banner</span></span></span></button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<script type="text/javascript">
+	//<![CDATA[
+	var <?php echo $_htmlName ?>RowTemplate = 
+		'<tr>'		
+	        + '<input type="hidden" name="" id="<?php echo $_htmlName ?>_row_{{index}}_options" />'        
+			+ '<td>'
+				+'<input class="<?php echo $_htmlClass ?>" type="file" name="category_banners[]" id="<?php echo $_htmlName ?>_row_{{index}}_name"/>'
+						+'<div class="store-pickup-image">'
+							+ '<img id="<?php echo $_htmlName ?>_row_{{index}}_image" src="" width="22px" height="22px" style="margin-left:5px;">'
+						+'</div>'
+						+ '<input id="<?php echo $_htmlName ?>_row_{{index}}_url" type="hidden" name="category_banners[{{index}}][banners]">'
+			+ '</td>'
+			+ '<td>'
+				+'<select id="<?php echo $_htmlName ?>_row_{{index}}_category" name="category_banners[{{index}}][category]">'
+					+'<?php foreach($categories as $category): ?><option value="<?php echo $category->getId()?>"><?php echo $category->getName()?> </option><?php endforeach;?>'
+				+'</select>'
+			+ '</td>'            
+	        + '<td>'
+	             + '<input class="input-text" style="width:50px;" id="<?php echo $_htmlName ?>_row_{{index}}_position" type="text" name="category_banners[{{index}}][position]">'
+	        + '</td>' 
+			+ '<td>'
+	             + '<input style="width:50px;" id="<?php echo $_htmlName ?>_row_{{index}}_status" type="checkbox" value="1" name="category_banners[{{index}}][status]">'
+	        + '</td>' 
+			+ '<td>'
+				+'<select id="<?php echo $_htmlName ?>_row_link_{{index}}" name="category_banners[{{index}}][url]">'
+					+'<?php foreach($allcategory as $category): ?><option value="<?php echo $category->getId()?>"><?php echo $category->getName()?> </option><?php endforeach;?>'
+				+'</select>'
+	        + '</td>' 
+			+ '<td class="last">'
+				+ '<input type="hidden" name="category_banners[{{index}}][delete]" class="delete" value="0" id="<?php echo $_htmlName ?>_row_{{index}}_delete" />'
+				+ '<button title="<?php echo $this->__("Delete") ?>" type="button" class="scalable delete icon-btn" id="<?php echo $_htmlName ?>_row_{{index}}_delete_button" onclick="return <?php echo $_htmlName ?>Control.deleteItem(event);">'
+					+ '<span><?php echo $this->__("Delete") ?></span>'
+				+ '</button>'
+			+ '</td>'
+		+ '</tr>';
+	var <?php echo $bannerControl ?> = {
+		template: new Template(<?php echo $_htmlName; ?>RowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+		itemsCount: 0,
+		addItem: function(){
+			var data = {
+				id: 0,			
+				position: 0,                      
+				index: this.itemsCount,
+				del: 0,
+				banner_url:'',
+				store:''
+			};
+			
+			if (arguments.length >= 1) {
+				data.banner_url = arguments[0];
+				data.categoryassign = arguments[1];
+				data.banner_position = arguments[2];
+				data.banner_status = arguments[3];
+				data.banner_link = arguments[4];
+				this.itemsCount = data.index;
+			}
+			Element.insert($('<?php echo $_htmlId ?>_container'),{
+				bottom: this.template.evaluate(data)
+			});                
+			$('<?php echo $_htmlName ?>_row_' + data.index + '_position').value = data.position;               
+			$('<?php echo $_htmlName ?>_row_' + data.index + '_options').value = data.index;
+			$('<?php echo $_htmlName ?>_row_' + data.index + '_delete').value = data.del;
+			if ( data.banner_url != ''){
+				if (typeof data.banner_url !== "undefined") {
+					 url = data.banner_url;
+					 $('<?php echo $_htmlName ?>_row_' + data.index + '_image').show();
+					 $('<?php echo $_htmlName ?>_row_' + data.index + '_image').setAttribute('src',url);
+					 $('<?php echo $_htmlName ?>_row_' + data.index + '_url').value = data.banner_url;
+					 $('<?php echo $_htmlName ?>_row_link_' + data.index ).value = data.banner_link;
+					 $('<?php echo $_htmlName ?>_row_' + data.index + '_category').value = data.categoryassign;	 
+				}else{
+					$('<?php echo $_htmlName ?>_row_' + data.index + '_image').setAttribute('src','');
+					$('<?php echo $_htmlName ?>_row_' + data.index + '_image').hide();
+				}	
+			}
+			else {
+				$('<?php echo $_htmlName ?>_row_' + data.index + '_image').setAttribute('src','');
+				$('<?php echo $_htmlName ?>_row_' + data.index + '_image').hide();
+			}
+			if (data.banner_status == 1){
+				$('<?php echo $_htmlName ?>_row_' + data.index + '_status').checked = true;
+			}
+			if(data.banner_position !=''){
+				if (typeof data.banner_position !== "undefined") {
+					$('<?php echo $_htmlName ?>_row_' + data.index + '_position').value = data.banner_position;
+				}else{
+					$('<?php echo $_htmlName ?>_row_' + data.index + '_position').value = '0';
+				}
+			}
+			this.itemsCount++;
+		},
+		disableElement: function(el){
+			el.disabled = true;
+			el.addClassName('disabled');
+		},
+		deleteItem: function(event){
+			var tr = Event.findElement(event, 'tr');
+			if (tr){
+				Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+				Element.select(tr, ['input','select']).each(function(elem){elem.hide()});
+				Element.hide(tr);
+				Element.addClassName(tr, 'no-display template');
+			}
+			return false;
+		}
+	};
+	
+	<?php if(count($data)):?>
+	<?php 
+	
+	foreach ($data as $_item):?>
+	<?php if($_item['delete'] != 1):?>
+	<?php echo $_htmlName ?>Control.addItem(
+	    '<?php echo $_item['banners']?>',
+	    '<?php echo $_item['category']?>',
+		'<?php echo $_item['position']?>',
+		'<?php echo $_item['status']?>',
+		'<?php echo $_item['url']?>'
+		);
+	<?php endif;?>
+	<?php endforeach;?>
+	<?php endif;?>
+	
+	</script>
+</div>
+		
+

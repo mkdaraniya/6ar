@@ -1,0 +1,9 @@
+a:5:{i:0;s:32:"Session expired. Try to relogin.";i:1;s:1055:"#0 C:\xampp\htdocs\6ar\app\code\local\Scrumwheel\Checkout\controllers\Adminhtml\PostordersController.php(176): SoapClient->__call('catalogInventor...', Array)
+#1 C:\xampp\htdocs\6ar\app\code\local\Scrumwheel\Checkout\controllers\Adminhtml\PostordersController.php(176): SoapClient->catalogInventoryStockItemList(Object(stdClass))
+#2 C:\xampp\htdocs\6ar\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Scrumwheel_Checkout_Adminhtml_PostordersController->indexAction()
+#3 C:\xampp\htdocs\6ar\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#4 C:\xampp\htdocs\6ar\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#5 C:\xampp\htdocs\6ar\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#6 C:\xampp\htdocs\6ar\app\Mage.php(684): Mage_Core_Model_App->run(Array)
+#7 C:\xampp\htdocs\6ar\index.php(85): Mage::run('', 'store')
+#8 {main}";s:3:"url";s:95:"/6ar/index.php/admin/admin/postorders/index/order_id/1684/key/b0fa70408ab35855e0edee8bd0a48a81/";s:11:"script_name";s:14:"/6ar/index.php";s:4:"skin";s:5:"admin";}

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * http://www.scrumwheel.com/
+ */
+-->
+<config>
+    <modules>
+        <Scrumwheel_Checkout>
+            <version>0.1.4</version>
+        </Scrumwheel_Checkout>
+    </modules>
+    <global>
+        <models>
+            <scrumwheel_checkout>
+                <class>Scrumwheel_Checkout_Model</class>
+            </scrumwheel_checkout>
+        </models>
+        <events>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <postDataTosServer>
+                        <type>singleton</type>
+                        <class>Scrumwheel_Checkout_Model_Observer</class>
+                        <method>postDataTosServer</method>
+                    </postDataTosServer>
+                </observers>
+            </checkout_onepage_controller_success_action>
+        </events>
+        <resources>
+            <scrumwheel_checkout_setup>
+                <setup>
+                    <module>Scrumwheel_Checkout</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </scrumwheel_checkout_setup>
+            <scrumwheel_checkout_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </scrumwheel_checkout_write>
+            <scrumwheel_checkout_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </scrumwheel_checkout_read>
+        </resources>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>Scrumwheel_Checkout_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <foo_bar before="Mage_Adminhtml">Scrumwheel_Checkout_Adminhtml</foo_bar>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

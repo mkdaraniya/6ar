@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Scrumwheel_Address>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Scrumwheel_Address>
+    </modules>
+</config>

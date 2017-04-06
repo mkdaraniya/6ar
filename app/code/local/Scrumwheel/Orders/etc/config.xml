@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <global>
+        <models>
+            <scrumwheel_orders>
+                <class>Scrumwheel_Orders_Model</class>
+            </scrumwheel_orders>
+        </models>
+        <events>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <export_new_order>
+                        <type>singleton</type>
+                        <class>Scrumwheel_Orders_Model_Observer</class>
+                        <method>export_new_order</method>
+                    </export_new_order>
+                </observers>
+            </checkout_onepage_controller_success_action>
+        </events>
+    </global>
+</config>

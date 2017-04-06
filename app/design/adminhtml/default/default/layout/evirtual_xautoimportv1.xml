@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Evirtual_Xautoimport extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Evirtual
+ * @package        Evirtual_Xautoimport
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_xautoimport_profile_index>
+		<reference name="head">
+			<action method="addJs"><script>evirtual/xautoimport/lib.js</script></action>
+		</reference>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>evirtual_xautoimport/profile</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="evirtual_xautoimport/adminhtml_profile" name="profile" />
+
+        </reference>
+    </adminhtml_xautoimport_profile_index>
+    <adminhtml_xautoimport_profile_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="evirtual_xautoimport/adminhtml_profile_grid" name="profile_grid"/>
+        </block>
+    </adminhtml_xautoimport_profile_grid>
+    <!-- Profile add/edit action -->
+    <adminhtml_xautoimport_profile_edit>
+		<reference name="head">
+			<action method="addJs"><script>evirtual/xautoimport/lib.js</script></action>
+		</reference>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>evirtual_xautoimport/profile</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="evirtual_xautoimport/adminhtml_profile_edit" name="profile_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="evirtual_xautoimport/adminhtml_profile_edit_tabs" name="profile_tabs"></block>
+        </reference>
+    </adminhtml_xautoimport_profile_edit>
+
+</layout>

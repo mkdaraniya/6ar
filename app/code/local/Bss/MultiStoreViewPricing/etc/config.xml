@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Bss_MultiStoreViewPricing>
+      <version>2.2.1</version>
+    </Bss_MultiStoreViewPricing>
+  </modules>
+
+  <global>
+
+    <helpers>
+      <multistoreviewpricing>
+        <class>Bss_MultiStoreViewPricing_Helper</class>
+      </multistoreviewpricing>
+    </helpers>
+
+    <blocks>
+      <multistoreviewpricing>
+        <class>Bss_MultiStoreViewPricing_Block</class>
+      </multistoreviewpricing>
+
+      <adminhtml>
+        <rewrite>
+          <catalog_product_edit_tab_price_tier>Bss_MultiStoreViewPricing_Block_Adminhtml_Product_Edit_Tab_Price_Tier</catalog_product_edit_tab_price_tier>
+        </rewrite>
+      </adminhtml>
+
+    </blocks>
+
+    <models>
+      <multistoreviewpricing>
+        <class>Bss_MultiStoreViewPricing_Model</class>
+        <resourceModel>bss_multistoreviewpricing_resource</resourceModel>
+      </multistoreviewpricing>
+
+      <bss_multistoreviewpricing_resource>
+        <class>Bss_MultiStoreViewPricing_Model_Resource</class>
+        <entities>
+          <tier_price>
+            <table>bss_multistoreviewpricing_product_tier_price</table>
+          </tier_price>
+          <group_price>
+            <table>bss_multistoreviewpricing_product_group_price</table>
+          </group_price>
+          <tierDefault>
+            <table>bss_multistoreviewpricing_product_tier_price_default</table>
+          </tierDefault>
+          <rule_product_price>
+            <table>catalogrule_product_price_store</table>
+          </rule_product_price>
+          <product_index_tier_price>
+            <table>bss_catalog_product_index_tier_price</table>
+          </product_index_tier_price>
+        </entities>
+      </bss_multistoreviewpricing_resource>
+
+     <!--  <core>
+        <rewrite>
+          <store>Bss_MultiStoreViewPricing_Model_Store</store>
+        </rewrite>
+      </core> -->
+
+      <adminhtml>
+        <rewrite>
+          <system_config_source_price_scope>Bss_MultiStoreViewPricing_Model_Source_Price_Scope</system_config_source_price_scope>
+        </rewrite>
+      </adminhtml>
+
+      <catalog>
+        <rewrite>
+          <product_attribute_backend_price>Bss_MultiStoreViewPricing_Model_Product_Attribute_Price</product_attribute_backend_price>
+          <!-- <product_type_price>Bss_MultiStoreViewPricing_Model_Product_Type_Price</product_type_price>
+          <product_type_configurable_price>Bss_MultiStoreViewPricing_Model_Product_Type_Configurable_Price</product_type_configurable_price> -->
+        </rewrite>
+      </catalog>
+
+      <catalog_resource>
+        <rewrite>
+          <product_collection>Bss_MultiStoreViewPricing_Model_Resource_Product_Collection</product_collection>
+          <product_indexer_price>Bss_MultiStoreViewPricing_Model_Resource_Product_Indexer_Price</product_indexer_price>
+        </rewrite>
+      </catalog_resource>
+
+      <catalogrule>
+        <rewrite>
+          <action_index_refresh>Bss_MultiStoreViewPricing_Model_Action_Index_Refresh</action_index_refresh>
+        </rewrite>
+      </catalogrule>
+
+      <catalogrule_resource>
+        <rewrite>
+          <rule>Bss_MultiStoreViewPricing_Model_Resource_CatalogRule_Rule</rule>
+        </rewrite>
+      </catalogrule_resource>
+
+      <!-- <bundle>
+        <rewrite>
+          <product_price>Bss_MultiStoreViewPricing_Model_Bundle_Product_Price</product_price>
+        </rewrite>
+      </bundle> -->
+
+      <!-- <downloadable>
+        <rewrite>
+          <product_price>Bss_MultiStoreViewPricing_Model_Downloadable_Product_Price</product_price>
+        </rewrite>
+      </downloadable> -->
+
+      <catalog_resource>
+        <rewrite>
+          <product_option_value>Bss_MultiStoreViewPricing_Model_Catalog_Resource_Product_Option_Value</product_option_value>
+          <product_option>Bss_MultiStoreViewPricing_Model_Catalog_Resource_Product_Option</product_option>
+        </rewrite>
+      </catalog_resource>
+
+      <catalogrule>
+        <rewrite>
+          <observer>Bss_MultiStoreViewPricing_Model_CatalogRule_Observer</observer>
+        </rewrite>
+      </catalogrule>
+      
+    </models>
+
+    <events>
+      <catalog_product_collection_apply_limitations_after>
+        <observers>
+          <multistoreviewpricing_catalog_product_collection_apply_limitations_after>
+            <class>multistoreviewpricing/observer</class>
+            <method>applyLimitations</method>
+          </multistoreviewpricing_catalog_product_collection_apply_limitations_after>
+        </observers>
+      </catalog_product_collection_apply_limitations_after>
+    </events>
+
+    <resources>
+      <bss_multistorepricing_setup>
+        <setup>
+          <module>Bss_MultiStoreViewPricing</module>
+          <class>Mage_Catalog_Model_Resource_Setup</class>
+        </setup>
+        <connection>
+          <use>core_setup</use>
+        </connection>
+      </bss_multistorepricing_setup>
+    </resources>
+  </global>
+
+  <adminhtml>
+    <events>
+      <adminhtml_catalog_product_edit_prepare_form>
+        <observers>
+          <multistoreviewpricing_prepare_form>
+            <class>multistoreviewpricing/observer</class>
+            <method>rendererAttributes</method>
+          </multistoreviewpricing_prepare_form>
+        </observers>
+      </adminhtml_catalog_product_edit_prepare_form>
+
+      <catalog_product_save_after>
+        <observers>
+          <multistoreviewpricing_product_save_after>
+            <class>multistoreviewpricing/observer</class>
+            <method>saveProductAfter</method>
+          </multistoreviewpricing_product_save_after>
+        </observers>
+      </catalog_product_save_after>
+    </events>
+
+    <acl>
+      <resources>
+        <all>
+          <title>Allow Everything</title>
+        </all> 
+        <admin>
+          <children>
+            <system>
+              <children>
+                <config>
+                  <children>
+                    <multistoreviewpricing>
+                      <title>Bss Multiple Store View Pricing Configuration</title>
+                    </multistoreviewpricing>    
+                  </children>  
+                </config> 
+              </children>   
+            </system>      
+          </children>    
+        </admin>
+      </resources> 
+    </acl>
+  </adminhtml>
+
+  <default>
+    <multistoreviewpricing>
+      <general>
+        <tier_price translate="label">0</tier_price>
+      </general>
+    </multistoreviewpricing>
+  </default>
+
+</config> 

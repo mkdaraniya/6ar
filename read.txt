@@ -1,0 +1,5 @@
+in this we have set attribute option
+
+like color,brand, manufecture
+
+in this we have added small,medium,base first image selected

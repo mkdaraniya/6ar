@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Evirtual_Xautoimport extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Evirtual
+ * @package        Evirtual_Xautoimport
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <modules>
+        <Evirtual_Xautoimport>
+            <version>1.0.2</version>
+        </Evirtual_Xautoimport>
+    </modules>
+    <global>
+        <resources>
+            <evirtual_xautoimport_setup>
+                <setup>
+                    <module>Evirtual_Xautoimport</module>
+                    <class>Evirtual_Xautoimport_Model_Resource_Setup</class>
+                </setup>
+            </evirtual_xautoimport_setup>
+        </resources>
+        <blocks>
+            <evirtual_xautoimport>
+                <class>Evirtual_Xautoimport_Block</class>
+            </evirtual_xautoimport>
+        </blocks>
+        <helpers>
+            <evirtual_xautoimport>
+                <class>Evirtual_Xautoimport_Helper</class>
+            </evirtual_xautoimport>
+        </helpers>
+        <models>
+            <evirtual_xautoimport>
+                <class>Evirtual_Xautoimport_Model</class>
+                <resourceModel>evirtual_xautoimport_resource</resourceModel>
+            </evirtual_xautoimport>
+            <evirtual_xautoimport_resource>
+                <class>Evirtual_Xautoimport_Model_Resource</class>
+                <entities>
+                    <profile>
+                        <table>evirtual_xautoimport_profile</table>
+                    </profile>
+                    <profile_store>
+                        <table>evirtual_xautoimport_profile_store</table>
+                    </profile_store>
+                </entities>
+            </evirtual_xautoimport_resource>
+        </models>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <evirtual_xautoimport>
+                    <file>evirtual_xautoimport.xml</file>
+                </evirtual_xautoimport>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Evirtual_Xautoimport>
+                    <files>
+                        <default>Evirtual_Xautoimport.csv</default>
+                    </files>
+                </Evirtual_Xautoimport>
+            </modules>
+        </translate>
+        <global_search>
+            <profile>
+                <class>evirtual_xautoimport/adminhtml_search_profile</class>
+                <acl>evirtual_xautoimport</acl>
+            </profile>
+        </global_search>
+		<events>	
+			<admin_system_config_changed_section_evirtual_xautoimport>
+                <observers>
+                    <collect_totals_after>
+                        <type>model</type>
+                        <class>evirtual_xautoimport/observer</class>
+                        <method>licenseCheck</method>
+                    </collect_totals_after>
+                </observers>
+            </admin_system_config_changed_section_evirtual_xautoimport>
+    	</events>
+	</adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Evirtual_Xautoimport before="Mage_Adminhtml">Evirtual_Xautoimport_Adminhtml</Evirtual_Xautoimport>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+	<frontend>
+        <routers>
+            <xautoimport>
+                <use>standard</use>
+                <args>
+                    <module>Evirtual_Xautoimport</module>
+                    <frontName>xautoimport</frontName>
+                </args>
+            </xautoimport>
+        </routers>  
+    </frontend>
+	<crontab>
+        <jobs>
+        	<evirtual_product_xautoimport>
+                <schedule><cron_expr>01 * * * *</cron_expr></schedule>
+                <run><model>evirtual_xautoimport/observer::xautoimport</model></run>
+			</evirtual_product_xautoimport>
+        </jobs>
+    </crontab>
+</config>

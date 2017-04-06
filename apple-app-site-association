@@ -1,0 +1,24 @@
+// 20161230151225
+// https://www.simicart.com/apple-app-site-association
+
+{
+"applinks": {
+"apps": [
+
+],
+"details": [
+{
+"appID": "Y4427S3SDN.com.simicart.superior",
+"paths": [
+"*"
+]
+},
+{
+"appID": "88X6EP4WFV.com.simicart.core40",
+"paths": [
+"*"
+]
+}
+]
+}
+}

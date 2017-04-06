@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category    
+ * @package     Spotproduct
+ * @copyright   Copyright (c) 2012 
+ * @license     
+ */
+-->
+<config>	
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<spotproduct module="spotproduct" translate="title">
+										<title>Spotproduct</title>
+										<sort_order>71</sort_order>									
+									</spotproduct>								
+								</children>
+							</config>
+						</children>
+					</system>
+					<spotproduct module="spotproduct" translate="title">
+						<title>Spotproduct</title>
+						<sort_order>71</sort_order>               
+						<children>													
+							<settings module="spotproduct" translate="title">
+								<title>Settings</title>
+								<sort_order>1000</sort_order>
+							</settings>
+						</children>
+					</spotproduct>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

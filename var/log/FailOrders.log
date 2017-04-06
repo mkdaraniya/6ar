@@ -1,0 +1,53 @@
+2017-04-05T07:11:08+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:11:08+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:18:11+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:18:11+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:18:11+00:00 DEBUG (7): Product List : Array sku : 146812754517
+2017-04-05T07:19:00+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:19:00+00:00 DEBUG (7): Soap Error : Shipping method is not available
+2017-04-05T07:23:26+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:23:26+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:23:26+00:00 DEBUG (7): Product List :  sku : 146812754517
+2017-04-05T07:24:14+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:24:14+00:00 DEBUG (7): Soap Error : Shipping method is not available
+2017-04-05T07:27:05+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:27:05+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:27:05+00:00 DEBUG (7): Product List : 0
+2017-04-05T07:28:00+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:28:00+00:00 DEBUG (7): Soap Error : Shipping method is not available
+2017-04-05T07:32:06+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:32:06+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:32:06+00:00 DEBUG (7): Product List :  sku : 146812754517
+2017-04-05T07:39:26+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:39:26+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:39:26+00:00 DEBUG (7): Product List :  sku : 146812754517
+2017-04-05T07:43:37+00:00 DEBUG (7): Computing For Order : 700000613
+2017-04-05T07:43:37+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:43:37+00:00 DEBUG (7): Product List :  sku : 146812754517
+2017-04-05T07:48:03+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T07:48:03+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:48:03+00:00 DEBUG (7): Product List :  sku : 003111248109 sku : 003112856168 sku : 021711394100 sku : 003110051264 sku : 099611662806 sku : 099611662805 sku : 100011701283 sku : 021710053713 sku : 003112473517 sku : OPI9457618 sku : 100011701137 sku : 007511181109 sku : 100011701254
+2017-04-05T07:52:49+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T07:52:49+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T07:52:49+00:00 DEBUG (7): Product List :  sku : 100011701254
+2017-04-05T08:20:43+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T08:20:43+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T08:20:43+00:00 DEBUG (7): Product List : Array
+2017-04-05T09:21:27+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T09:21:27+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T09:21:27+00:00 DEBUG (7): Product List : Array003111248109,003112856168,021711394100,003110051264,099611662806,099611662805,100011701283,021710053713,003112473517,OPI9457618,100011701137,007511181109,100011701254,
+2017-04-05T09:28:10+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T09:28:10+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T09:28:10+00:00 DEBUG (7): Product List : Array
+2017-04-05T09:37:42+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T09:37:42+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T09:37:42+00:00 DEBUG (7): Product List : Array
+2017-04-05T09:42:25+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T09:42:25+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T09:42:25+00:00 DEBUG (7): Product List : Array
+2017-04-05T09:52:41+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T09:52:41+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T09:52:41+00:00 DEBUG (7): Product List : Array
+2017-04-05T09:59:50+00:00 DEBUG (7): Computing For Order : 700000611
+2017-04-05T09:59:50+00:00 DEBUG (7): Soap Error : This product is currently out of stock.
+2017-04-05T09:59:50+00:00 DEBUG (7): Product List : Array

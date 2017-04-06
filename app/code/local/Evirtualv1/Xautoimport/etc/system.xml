@@ -1,0 +1,59 @@
+<config>
+    <tabs>
+        <xautoimport_tab translate="label" module="evirtual_xautoimport">
+            <label>Evirtual Technology</label>
+            <sort_order>500</sort_order>
+        </xautoimport_tab>
+    </tabs>
+    <sections>
+        <evirtual_xautoimport translate="label" module="evirtual_xautoimport">
+            <class>separator-top</class>
+            <label>Evirtual Xautoimport</label>
+            <tab>xautoimport_tab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <general translate="label" module="evirtual_xautoimport">
+                    <label>General settings</label>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enable translate="title comment" module="evirtual_xautoimport">
+                            <label>Enable :</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>After you get the hang of it you can disable the help tab to make it a little faster.</comment>
+                        </enable>
+						<key translate="title comment" module="evirtual_xautoimport">
+                            <label>Key :</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enter the Key that you get with Email.</comment>
+                        </key>
+						<status translate="title comment" module="evirtual_xautoimport">
+                            <label>Status :</label>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </status>
+                        
+                    </fields>
+                </general>
+            </groups>
+        </evirtual_xautoimport>
+    </sections>
+</config>

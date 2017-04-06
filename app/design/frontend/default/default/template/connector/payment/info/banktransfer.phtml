@@ -1,0 +1,29 @@
+<?php
+/**
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category    
+ * @package     Connector
+ * @copyright   Copyright (c) 2012 
+ * @license     
+ */
+?>
+<?php
+/**
+ * @see Magestore_Madapter_Block_Transfer
+ */
+?>
+<p><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></p>
+<?php if ($this->getInstructions()): ?>
+<table>
+    <tbody>
+        <tr>
+            <td><?php echo nl2br($this->getInstructions()) ?></td>
+        </tr>
+    </tbody>
+</table>
+<?php endif; ?>

@@ -1,0 +1,161 @@
+<?php
+$profile=Mage::registry('current_profile');
+//Zend_Debug::dump($profile->getData());
+$profileSourceType=$profile['profile_source_type'];
+//Mage::helper('evirtual_xautoimport')->loadFile("http://development4magento.com/dev/toul/new.xml",'xml');
+?>
+<div id="profile-generator" class="entry-edit profile-generator">
+  <div id="__fieldmapping">
+    <div class="entry-edit-head">
+      <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Validate Data Source") ?></h4>
+    </div>
+    <div id="profile_profile_validate" class="fieldset ">
+      <div class="hor-scroll">
+        <table cellspacing="0" class="form-list">
+          <tbody>
+            
+            <tr>
+              <td class="label"><label for="profile_source_type"><?php echo $this->__('Source Type'); ?><span class="required">*</span></label></td>
+              <td class="value">
+                     <select class="required-entry required-entry select" name="profile[profile_source_type]" id="profile_source_type">																			
+                     	<option value=""><?php echo $this->__('Select Source Type'); ?></option>	
+                     	<?php if($profileSourceType=="xml"): ?>
+                            <option value="xml" selected="selected"><?php echo $this->__('XML'); ?></option>
+                            <!--<option value="simplexml"><?php echo $this->__('SIMPLE XML'); ?></option>-->
+                            <!--<option value="csv"><?php echo $this->__('CSV'); ?></option>-->
+                        <?php elseif($profileSourceType=="simplexml"): ?>
+                        	<option value="xml"><?php echo $this->__('XML'); ?></option>  
+                            <!--<option value="simplexml" selected="selected"><?php echo $this->__('SIMPLE XML'); ?></option> --> 
+                        	<!--<option value="csv" selected="selected"><?php echo $this->__('CSV'); ?></option>-->
+           			 	<?php else: ?>
+                        	<option value="xml"><?php echo $this->__('XML'); ?></option>
+                            <!--<option value="simplexml"><?php echo $this->__('SIMPLE XML'); ?></option>-->
+                           <!-- <option value="csv"><?php echo $this->__('CSV'); ?></option>-->
+                        <?php endif; ?>
+                        
+                     </select>
+                </td>
+                </tr>
+            
+            
+            <tr>
+              <td class="label"><label for="profile_url"><?php echo $this->__('Source Url'); ?><span class="required">*</span></label></td>
+              <td class="value"><input type="text" class="required-entry input-text required-entry" name="profile[url]" id="profile_url" value="<?php echo $profile['url']; ?>"></td>
+            </tr>
+            
+            <tr>
+              <td class="label"><label for="profile_validate_date"><?php echo $this->__('Validate Data'); ?><span class="required">*</span></label></td>
+              <td class="value"><button onclick="validatesource();" type="button"><span><span><?php echo $this->__('Validate'); ?></span></span></button></td>
+            </tr>
+            
+          </tbody>
+        </table>
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	function validatesource(){
+				
+					
+					
+				
+				var profile_url=document.getElementById("profile_url").value;
+				var profile_source_type=document.getElementById("profile_source_type").value;
+				if(profile_source_type=="xml"){
+					var type='xmlparse';
+				}else{
+					var type=profile_source_type;
+				}
+				
+				var profile_data_type=document.getElementById("profile_data_type").value;
+				var profile_profile_type=document.getElementById("profile_profile_type").value;
+				new Ajax.Request('<?php echo $this->getUrl('*/xautoimport_ajax/validate'); ?>', {
+				  method: 'get',
+				  parameters: {url:profile_url,type:type,profile_source_type:profile_source_type,profile_data_type:profile_data_type,profile_profile_type:profile_profile_type}
+				});
+				
+				ProfileTabsFormMapping=document.getElementById("profile_tabs_form_mapping");
+				ProfileTabsFormMappingClassName=ProfileTabsFormMapping.className;
+				document.getElementById("profile_tabs_form_mapping").className=ProfileTabsFormMappingClassName+" notloaded";
+				
+				ProfileTabsFormMapping=document.getElementById("profile_tabs_form_category");
+				ProfileTabsFormMappingClassName=ProfileTabsFormMapping.className;
+				document.getElementById("profile_tabs_form_category").className=ProfileTabsFormMappingClassName+" notloaded";
+					
+			}
+			
+			function categoryprimary(ele){
+				if(ele.value=="no"){
+					document.getElementById("source_file_fields").style.display="table-row";
+				}else{
+					document.getElementById("source_file_fields").style.display="none";
+					var gui_data=document.getElementsByClassName("profile_entity_type_category");
+					for(i=0;i<gui_data.length;i++){
+						gui_data[i].style.display="none";
+					}
+					document.getElementById("addbutton").style.display="none";
+				}
+			}
+			
+			function getSelectValues(select) {
+			  var result = [];
+			  var options = select && select.options;
+			  var opt;
+			
+			  for (var i=0, iLen=options.length; i<iLen; i++) {
+				opt = options[i];
+			
+				if (opt.selected) {
+				  result.push(opt.value || opt.text);
+				}
+			  }
+			  return result;
+			}
+			
+			function categorysecondry(ele){
+				if(ele.value!=""){
+					
+					var selected1 = getSelectValues(ele);
+					selected1=selected1.toString();
+					//alert(selected1);
+					document.getElementById("addbutton").style.display="block";	
+					new Ajax.Request('<?php echo $this->getUrl('*/xautoimport_ajax/categorydata'); ?>', {
+					  method: 'get',
+					  parameters: {feild:selected1},
+					  onSuccess: function(transport) {
+						   var json = transport.responseText.evalJSON();
+							var html=json.result;
+							var gui_data=document.getElementsByClassName("guid_data_file");
+							for(i=0;i<gui_data.length;i++){
+								gui_data[i].innerHTML=html;
+							}
+							var profile_entity_type_category=document.getElementsByClassName("profile_entity_type_category");
+							for(i=0;i<profile_entity_type_category.length;i++){
+								profile_entity_type_category[i].style.display="block";
+							}
+						  }
+					});
+					
+				}
+			}
+			
+			<?php
+				//Zend_Debug::dump(Mage::app()->getRequest()->getActionName());	
+				$Params=Mage::app()->getRequest()->getParams();
+				//Zend_Debug::dump($Params['id']);	
+				if($Params['id']){
+			?>
+					window.onload=function(){
+						var profileTabsFormMapping = document.getElementById("profile_tabs_form_mapping");
+						profileTabsFormMapping.click();
+						var profileTabsFormMapping = document.getElementById("profile_tabs_form_category");
+						profileTabsFormMapping.click();
+					}
+			<?php		
+						
+				}
+				
+			?>
+					
+</script>
